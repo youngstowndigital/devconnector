@@ -4,13 +4,31 @@ import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner';
 import { getCurrentProfile } from '../../actions/profile';
 
-const Dashboard = ({ getCurrentProfile, profile: { profile, loading }, auth }) => {
+const Dashboard = ({ 
+    getCurrentProfile, 
+    profile: { profile, loading }, 
+    auth: { user } 
+}) => {
     useEffect(() => {
         getCurrentProfile()
     }, []);
 
     return loading && profile === null ? <Spinner /> : <Fragment>
-        Test
+        <h1 className="large text-primary">
+            Dashboard
+        </h1>
+        <p className="lead">
+            <i className="fas fa-user"></i> Welcome { user && user.name }
+        </p>
+        { profile !== null ? 
+            <Fragment>
+                has
+            </Fragment> 
+            : 
+            <Fragment>
+                has not
+            </Fragment> 
+        }
     </Fragment>;
 }
 
