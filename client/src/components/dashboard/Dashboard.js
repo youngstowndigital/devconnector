@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner';
 import { getCurrentProfile } from '../../actions/profile';
+import DashboardActions from './DashboardActions';
 
 const Dashboard = ({ 
     getCurrentProfile, 
@@ -16,7 +17,7 @@ const Dashboard = ({
 
     return loading && profile === null ? <Spinner /> : <Fragment>
         <h1 className="large text-primary">
-            Dashboard
+            <DashboardActions />
         </h1>
         <p className="lead">
             <i className="fas fa-user"></i> Welcome { user && user.name }
