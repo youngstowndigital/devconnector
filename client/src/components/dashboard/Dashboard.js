@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner';
 import { getCurrentProfile } from '../../actions/profile';
 import DashboardActions from './DashboardActions';
+import Experience from './Experience';
+import Education from './Education';
 
 const Dashboard = ({ 
     getCurrentProfile, 
@@ -17,14 +19,16 @@ const Dashboard = ({
 
     return loading && profile === null ? <Spinner /> : <Fragment>
         <h1 className="large text-primary">
-            <DashboardActions />
+            Dashboard
         </h1>
         <p className="lead">
             <i className="fas fa-user"></i> Welcome { user && user.name }
         </p>
         { profile !== null ? 
             <Fragment>
-                has
+                <DashboardActions />
+                <Experience experience={profile.experience}/>
+                <Education education={profile.education} /> 
             </Fragment> 
             : 
             <Fragment>
