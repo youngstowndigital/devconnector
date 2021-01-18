@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alerts';
+import setAuthToken from '../utils/setAuthToken';
 import {
     GET_POSTS,
     POST_ERROR
@@ -7,8 +8,13 @@ import {
 
 // Get posts
 export const getPosts = () => async dispatch => {
+    if (localStorage.getItem('token')) {
+        setAuthToken(localStorage.getItem('token'));
+    }
+
     try {
-        const res = axios.get('/api/posts');
+        const res = await axios.get('/api/posts');
+        console.log(res);
 
         dispatch({
             type: GET_POSTS,
