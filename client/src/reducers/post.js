@@ -12,6 +12,7 @@ const intitialState = {
 
 export default function(state = intitialState, action) {
     const { type, payload } = action;
+    console.log(payload);
     switch(type) {
         case GET_POSTS:
             return {
