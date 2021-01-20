@@ -2,6 +2,7 @@ import axios from 'axios';
 import { setAlert } from './alerts';
 import setAuthToken from '../utils/setAuthToken';
 import {
+    GET_POST,
     GET_POSTS,
     POST_ERROR,
     UPDATE_LIKES,
@@ -121,6 +122,28 @@ export const addPost = formData => async dispatch => {
         });
 
         dispatch(setAlert('Post Added', 'success'));
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
+// Get post
+export const getPost = (postId) => async dispatch => {
+    if (localStorage.getItem('token')) {
+        setAuthToken(localStorage.getItem('token'));
+    }
+
+    try {
+        const res = await axios.get(`/api/posts/${postId}`);
+        console.log(res);
+
+        dispatch({
+            type: GET_POST,
+            payload: res.data
+        });
     } catch (err) {
         dispatch({
             type: POST_ERROR,
