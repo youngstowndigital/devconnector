@@ -4,7 +4,9 @@ import {
     UPDATE_LIKES,
     DELETE_POST,
     ADD_POST,
-    GET_POST
+    GET_POST,
+    ADD_COMMENT,
+    REMOVE_COMMENT
 } from '../actions/types';
 
 const intitialState = {
@@ -16,7 +18,6 @@ const intitialState = {
 
 export default function(state = intitialState, action) {
     const { type, payload } = action;
-    console.log(payload);
     switch(type) {
         case GET_POSTS:
             return {
@@ -53,6 +54,22 @@ export default function(state = intitialState, action) {
                 ...state,
                 loading: false,
                 posts: state.posts.map(post => post._id === payload.postId ? { ...post, likes: payload.likes } : post)
+            }
+        case ADD_COMMENT:
+            return {
+                ...state,
+                loading: false,
+                post: { ...state.post, comments: payload }
+            }
+        case REMOVE_COMMENT:
+            return {
+                ...state,
+                loading: false,
+                post: { 
+                    ...state.post, 
+                    comments: state.post.comments
+                        .filter(comment => comment._id !== payload) 
+                }
             }
         default:
             return state;
