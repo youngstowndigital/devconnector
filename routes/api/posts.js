@@ -169,7 +169,7 @@ router.put('/comment/:id', [ auth, [
     try {
         const post = await Post.findById(req.params.id);
         if (!post) {
-            return res.status(404).json({ msg: 'Post not round' });
+            return res.status(404).json({ msg: 'Post not found' });
         }
         const user = await User.findById(req.user.id).select('-password');
 
